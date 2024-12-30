@@ -1,49 +1,50 @@
 import ctypes
-import matplotlib as plt
 
-lib = ctypes.CDLL("./native/library.so")
+SQUARE_SIDE_SUCTION_CUP = 145
 
+# Define the Point structure
 class Point(ctypes.Structure):
     _fields_ = [("x", ctypes.c_double), ("y", ctypes.c_double)]
     
-lib.get_polygon_area.argtypes = [ctypes.POINTER(Point), ctypes.c_int]
+def square_cup_verticies(center_x, center_y):
+    half_side = SQUARE_SIDE_SUCTION_CUP / 2
 
-def square_suction_cup(center_x, center_y):
-    square_side = 145
-    half_side = square_side / 2
-
-    square_coords = [
+    square_vertices = [
         (center_x - half_side, center_y - half_side),
         (center_x - half_side, center_y + half_side),
         (center_x + half_side, center_y + half_side),
         (center_x + half_side, center_y - half_side),
-        (center_x - half_side, center_y - half_side)  # Close the square
+        (center_x - half_side, center_y - half_side)  
     ]
-    square_x, square_y = zip(*square_coords)
+    
+    return square_vertices
 
-    return square_x, square_y
+lib = ctypes.CDLL("./native/liblibrary.so")
 
-# Define the sides of the polygon and its vertices
-sides = [((665, 394), (20, 262)), ((20, 262), (20, 135)), ((20, 135), (665, 4)), ((665, 4), (689, 17)),
-            ((689, 17), (689, 380)), ((689, 380), (665, 394))]
-points = [(665, 394), (20, 262), (20, 135), (665, 4), (689, 17), (689, 380), (665, 394)]
+lib.get_polygon_area.argtypes = [ctypes.POINTER(Point), ctypes.c_int]
+lib.get_polygon_area.restype = ctypes.c_double
 
-# Plot the polygon
-x, y = zip(*points)  # Extract x and y coordinates
-plt.figure(figsize=(8, 6))
-plt.plot(x, y, '-o', label="Polygon")  # Draw the polygon and mark vertices
-plt.scatter(*zip(*points), color='red', zorder=5, label="Vertices")  # Highlight vertices
+# Define the vertices of the wood piece
+vertices_polygon = [
+    (665, 394),
+    (20, 262),
+    (20, 135),
+    (665, 4),
+    (689, 17),
+    (689, 380),
+    (665, 394)
+]
 
-# Add labels for vertices
-for idx, (px, py) in enumerate(points[:-1]):  # Exclude the last repeated vertex
-    plt.text(px + 5, py + 5, f"P{idx + 1}", color="blue", fontsize=10)
+# Define the vertices of the cups
+center_x1, center_x2 = (210, 200)
+verticies_square_cup = square_cup_verticies(center_x1, center_x2)
 
-center_x1, center_y1 = (210, 200)
-center_x2, center_y2 = (588, 200)
+point_array_cup1 = (Point * len(verticies_square_cup))(*[Point(x, y) for x, y in verticies_square_cup])
+point_array_polygon = (Point * len(vertices_polygon))(*[Point(x, y) for x, y in vertices_polygon])
 
-square_x1, square_y1 = square_suction_cup(center_x1, center_y1)
-square_x2, square_y2 = square_suction_cup(center_x2, center_y2)
+area_square_cup = lib.get_polygon_area(point_array_cup1, len(verticies_square_cup))
+area_polygon = lib.get_polygon_area(point_array_polygon, len(vertices_polygon))
 
-area_square_cup = lib.compute_polygon_area(list(zip(square_x1, square_y1)))
-
-print(f"The area of the square cup is {area_square_cup}")
+# Print the area
+print(f"The area of the square cup is: {area_square_cup}")
+print(f"The area of the wood piece is: {area_polygon}")
