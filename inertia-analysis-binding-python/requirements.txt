@@ -3,3 +3,4 @@ cffi
 pybind11
 pycparser
 setuptools
+matplotlib
