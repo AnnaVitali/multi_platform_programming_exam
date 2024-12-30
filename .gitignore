@@ -1,0 +1,171 @@
+# Byte-compiled / optimized / DLL files
+inertia-analysis-binding-python/__pycache__/
+inertia-analysis-binding-python/*.py[cod]
+inertia-analysis-binding-python/*$py.class
+
+# C extensions
+inertia-analysis-binding-python/*.so
+
+# Distribution / packaging
+inertia-analysis-binding-python/.Python
+inertia-analysis-binding-python/build/
+inertia-analysis-binding-python/develop-eggs/
+inertia-analysis-binding-python/dist/
+inertia-analysis-binding-python/downloads/
+inertia-analysis-binding-python/eggs/
+inertia-analysis-binding-python/.eggs/
+inertia-analysis-binding-python/lib/
+inertia-analysis-binding-python/lib64/
+inertia-analysis-binding-python/parts/
+inertia-analysis-binding-python/sdist/
+inertia-analysis-binding-python/var/
+inertia-analysis-binding-python/wheels/
+inertia-analysis-binding-python/share/python-wheels/
+inertia-analysis-binding-python/*.egg-info/
+inertia-analysis-binding-python/.installed.cfg
+inertia-analysis-binding-python/*.egg
+inertia-analysis-binding-python/MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+inertia-analysis-binding-python/*.manifest
+inertia-analysis-binding-python/*.spec
+
+# Installer logs
+inertia-analysis-binding-python/pip-log.txt
+inertia-analysis-binding-python/pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+inertia-analysis-binding-python/htmlcov/
+inertia-analysis-binding-python/.tox/
+inertia-analysis-binding-python/.nox/
+inertia-analysis-binding-python/.coverage
+inertia-analysis-binding-python/.coverage.*
+inertia-analysis-binding-python/.cache
+inertia-analysis-binding-python/nosetests.xml
+inertia-analysis-binding-python/coverage.xml
+inertia-analysis-binding-python/*.cover
+inertia-analysis-binding-python/*.py,cover
+inertia-analysis-binding-python/.hypothesis/
+inertia-analysis-binding-python/.pytest_cache/
+inertia-analysis-binding-python/cover/
+
+# Translations
+inertia-analysis-binding-python/*.mo
+inertia-analysis-binding-python/*.pot
+
+# Django stuff:
+inertia-analysis-binding-python/*.log
+inertia-analysis-binding-python/local_settings.py
+inertia-analysis-binding-python/db.sqlite3
+inertia-analysis-binding-python/db.sqlite3-journal
+
+# Flask stuff:
+inertia-analysis-binding-python/instance/
+inertia-analysis-binding-python/.webassets-cache
+
+# Scrapy stuff:
+inertia-analysis-binding-python/.scrapy
+
+# Sphinx documentation
+inertia-analysis-binding-python/docs/_build/
+
+# PyBuilder
+inertia-analysis-binding-python/.pybuilder/
+inertia-analysis-binding-python/target/
+
+# Jupyter Notebook
+inertia-analysis-binding-python/.ipynb_checkpoints
+
+# IPython
+inertia-analysis-binding-python/profile_default/
+inertia-analysis-binding-python/ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# inertia-analysis-binding-python/.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+# inertia-analysis-binding-python/Pipfile.lock
+
+# UV
+#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+# inertia-analysis-binding-python/uv.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+# inertia-analysis-binding-python/poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+# inertia-analysis-binding-python/pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+inertia-analysis-binding-python/.pdm.toml
+inertia-analysis-binding-python/.pdm-python
+inertia-analysis-binding-python/.pdm-build/
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+inertia-analysis-binding-python/__pypackages__/
+
+# Celery stuff
+inertia-analysis-binding-python/celerybeat-schedule
+inertia-analysis-binding-python/celerybeat.pid
+
+# SageMath parsed files
+inertia-analysis-binding-python/*.sage.py
+
+# Environments
+inertia-analysis-binding-python/.env
+inertia-analysis-binding-python/.venv
+inertia-analysis-binding-python/env/
+inertia-analysis-binding-python/venv/
+inertia-analysis-binding-python/ENV/
+inertia-analysis-binding-python/env.bak/
+inertia-analysis-binding-python/venv.bak/
+
+# Spyder project settings
+inertia-analysis-binding-python/.spyderproject
+inertia-analysis-binding-python/.spyproject
+
+# Rope project settings
+inertia-analysis-binding-python/.ropeproject
+
+# mkdocs documentation
+inertia-analysis-binding-python/site
+
+# mypy
+inertia-analysis-binding-python/.mypy_cache/
+inertia-analysis-binding-python/.dmypy.json
+inertia-analysis-binding-python/dmypy.json
+
+# Pyre type checker
+inertia-analysis-binding-python/.pyre/
+
+# pytype static type analyzer
+inertia-analysis-binding-python/.pytype/
+
+# Cython debug symbols
+inertia-analysis-binding-python/cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+# inertia-analysis-binding-python/.idea/
+
+# PyPI configuration file
+inertia-analysis-binding-python/.pypirc
