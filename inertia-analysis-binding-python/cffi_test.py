@@ -62,5 +62,21 @@ for i, (center_x, center_y) in enumerate(cups_center, start=1):
     print(f"jx: {absolute_moments.i:.5e} \njy: {absolute_moments.j:.5e} \njxy: {absolute_moments.ij:.5e}")
     print(f"Baricentric moment of inertia for cup {i}:")
     print(f"jx: {baricentric_moments.i:.5e} \njy: {baricentric_moments.j:.5e} \njxy: {baricentric_moments.ij:.5e}")
+    
+polygons_array = ffi.new("Polygon[]", polygons)
+overall_center_of_gravity = lib.get_overall_center_of_gravity(polygons_array, len(polygons))
+
+print("========== Test Overall Center of Gravity ===========")
+print(f"Overall center of gravity: x = {overall_center_of_gravity.x}, y = {overall_center_of_gravity.y}")
+
+combined_absolute_moments = lib.get_combined_absolute_moment_of_inertia(polygons_array, len(polygons))
+
+print(f"=== Test Absolute Moments of inertia entire piece ===")
+print(f"jx: {combined_absolute_moments.i:.5e} \njy: {combined_absolute_moments.j:.5e} \njxy: {combined_absolute_moments.ij:.5e}")
+
+combined_baricentric_moments = lib.get_combined_baricentric_moments_of_inertia(polygons_array, len(polygons), ffi.new("Point*", {"x": overall_center_of_gravity.x, "y": overall_center_of_gravity.y}))
+
+print(f"== Test Baricentric Moments of inertia entire piece ==")
+print(f"jx: {combined_baricentric_moments.i:.5e} \njy: {combined_baricentric_moments.j:.5e} \njxy: {combined_baricentric_moments.ij:.5e}")
 
 
