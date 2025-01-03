@@ -35,79 +35,61 @@ InertiaMoments get_absolute_moments_of_inertia(Point* vertices, int num_vertices
 }
 
 InertiaMoments get_baricentric_moments_of_inertia(Polygon* polygon) {
-    InertiaMoments moments;
+    InertiaMoments moments = polygon->absolute_moments_of_inertia;
     double area = polygon->area;
-    double x_g = polygon->barycenter_x;
-    double y_g = polygon->barycenter_y;
-    double jx = polygon->absolute_moments_of_inertia[0];
-    double jy = polygon->absolute_moments_of_inertia[1];
-    double jxy = polygon->absolute_moments_of_inertia[2];
-    double angle_rad = polygon->angle;
-    double cos_angle = cos(angle_rad);
-    double sin_angle = sin(angle_rad);
+    Point barycenter = polygon->barycenter;
 
-    double i_prime = jx - y_g * y_g * area;
-    double j_prime = jy - x_g * x_g * area;
-    double ij_prime = jxy - y_g * x_g * area;
-
-    moments.i = i_prime * cos_angle * cos_angle + j_prime * sin_angle * sin_angle - ij_prime * 2 * sin_angle * cos_angle;
-    moments.j = i_prime * sin_angle * sin_angle + j_prime * cos_angle * cos_angle + ij_prime * 2 * sin_angle * cos_angle;
-    moments.ij = (i_prime - j_prime) * sin_angle * cos_angle + ij_prime * (cos_angle * cos_angle - sin_angle * sin_angle);
+    moments.i -= area * barycenter.y * barycenter.y;
+    moments.j -= area * barycenter.x * barycenter.x;
+    moments.ij -= area * barycenter.x * barycenter.y;
 
     return moments;
 }
 
 Point get_overall_center_of_gravity(Polygon* polygons, int num_polygons) {
-    Point center_of_gravity = {0, 0};
-    double total_area = 0;
-    double weighted_cx_sum = 0;
-    double weighted_cy_sum = 0;
+    double total_area = 0.0;
+    Point overall_center = {0.0, 0.0};
 
     for (int i = 0; i < num_polygons; i++) {
-        double area = polygons[i].area;
-        double barycenter_x = polygons[i].barycenter_x;
-        double barycenter_y = polygons[i].barycenter_y;
-
-        total_area += area;
-        weighted_cx_sum += area * barycenter_x;
-        weighted_cy_sum += area * barycenter_y;
+        total_area += polygons[i].area;
+        overall_center.x += polygons[i].barycenter.x * polygons[i].area;
+        overall_center.y += polygons[i].barycenter.y * polygons[i].area;
     }
 
-    center_of_gravity.x = weighted_cx_sum / total_area;
-    center_of_gravity.y = weighted_cy_sum / total_area;
+    overall_center.x /= total_area;
+    overall_center.y /= total_area;
 
-    return center_of_gravity;
+    return overall_center;
 }
 
 InertiaMoments get_combined_absolute_moment_of_inertia(Polygon* polygons, int num_polygons) {
-    InertiaMoments moments = {0, 0, 0};
+    InertiaMoments combined_moments = {0, 0, 0};
 
     for (int i = 0; i < num_polygons; i++) {
-        moments.i += polygons[i].absolute_moments_of_inertia[0];
-        moments.j += polygons[i].absolute_moments_of_inertia[1];
-        moments.ij += polygons[i].absolute_moments_of_inertia[2];
+        combined_moments.i += polygons[i].absolute_moments_of_inertia.i;
+        combined_moments.j += polygons[i].absolute_moments_of_inertia.j;
+        combined_moments.ij += polygons[i].absolute_moments_of_inertia.ij;
     }
 
-    return moments;
+    return combined_moments;
 }
 
 InertiaMoments get_combined_baricentric_moments_of_inertia(Polygon* polygons, int num_polygons, double x_G, double y_G) {
-    InertiaMoments moments = {0, 0, 0};
-    double area_total = 0;
+    InertiaMoments combined_moments = {0, 0, 0};
 
     for (int i = 0; i < num_polygons; i++) {
-        moments.i += polygons[i].absolute_moments_of_inertia[0];
-        moments.j += polygons[i].absolute_moments_of_inertia[1];
-        moments.ij += polygons[i].absolute_moments_of_inertia[2];
-        area_total += polygons[i].area;
+        InertiaMoments moments = polygons[i].absolute_moments_of_inertia;
+        double area = polygons[i].area;
+        Point barycenter = polygons[i].barycenter;
+
+        moments.i -= area * barycenter.y * barycenter.y;
+        moments.j -= area * barycenter.x * barycenter.x;
+        moments.ij -= area * barycenter.x * barycenter.y;
+
+        combined_moments.i += moments.i + area * (barycenter.y - y_G) * (barycenter.y - y_G);
+        combined_moments.j += moments.j + area * (barycenter.x - x_G) * (barycenter.x - x_G);
+        combined_moments.ij += moments.ij + area * (barycenter.x - x_G) * (barycenter.y - y_G);
     }
 
-    double jx = moments.i - y_G * y_G * area_total;
-    double jy = moments.j - x_G * x_G * area_total;
-    double jxy = moments.ij - y_G * x_G * area_total;
-
-    moments.i = (jx + jy) / 2 - 0.5 * sqrt((jx - jy) * (jx - jy) + 4 * jxy * jxy);
-    moments.j = (jx + jy) / 2 + 0.5 * sqrt((jx - jy) * (jx - jy) + 4 * jxy * jxy);
-
-    return moments;
+    return combined_moments;
 }

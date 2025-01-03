@@ -15,9 +15,8 @@ typedef struct {
 
 typedef struct {
     double area;
-    double barycenter_x;
-    double barycenter_y;
-    double absolute_moments_of_inertia[3];
+    Point barycenter;
+    InertiaMoments absolute_moments_of_inertia;
     double angle;
 } Polygon;
 
