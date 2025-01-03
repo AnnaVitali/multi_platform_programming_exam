@@ -36,6 +36,9 @@ lib.get_absolute_moments_of_inertia.restype = InertiaMoments
 lib.get_baricentric_moments_of_inertia.argtypes = [ctypes.POINTER(Polygon)]
 lib.get_baricentric_moments_of_inertia.restype = InertiaMoments
 
+lib.get_overall_center_of_gravity.argtypes = [ctypes.POINTER(Polygon), ctypes.c_int]
+lib.get_overall_center_of_gravity.restype = Point
+
 # Define the vertices of the wood piece
 vertices_polygon = [
     (665, 394),
@@ -55,6 +58,7 @@ print(f"The area of the wood piece is: {area_polygon}")
 
 
 cups_center = [(210, 200), (588, 200)]
+polygons = []
 
 for i, (center_x, center_y) in enumerate(cups_center, start=1):
     vertices_square_cup = square_cup_verticies(center_x, center_y)
@@ -64,21 +68,24 @@ for i, (center_x, center_y) in enumerate(cups_center, start=1):
     absolute_moments = lib.get_absolute_moments_of_inertia(point_array_cup, len(vertices_square_cup))
 
     cup = Polygon(area_square_cup, Point(center_x, center_y), absolute_moments, angle=0.0)
+    polygons.append(cup)
     
-    baricentric_moments = lib.get_baricentric_moments_of_inertia()
+    baricentric_moments = lib.get_baricentric_moments_of_inertia(cup)
     
    
     print(f"============== Area for Cup {i} ===============")
     print(f"The area of the square cup {i} is: {area_square_cup}")
     print(f"=== Absolute Moment of Inertia for Cup {i} ====")
     print(f"Absolute moment of inertia for cup {i}:")
-    print(f"jx: {absolute_moments.i} /n jy: {absolute_moments.j} /n jxy: {absolute_moments.ij}")
+    print(f"jx: {absolute_moments.i} \n jy: {absolute_moments.j} \n jxy: {absolute_moments.ij}")
     print(f"Baricentric moment of inertia for cup {i}:")
-    print(f"jx: {baricentric_moments.i} /n jy: {baricentric_moments.j} /n jxy: {baricentric_moments.ij}")
+    print(f"jx: {baricentric_moments.i} \n jy: {baricentric_moments.j} \n jxy: {baricentric_moments.ij}")
 
+polygons_array = (Polygon * len(polygons))(*polygons)
+overall_center_of_gravity = lib.get_overall_center_of_gravity(polygons_array, len(polygons))
 
-
-
+print("========== Test Overall Center of Gravity ===========")
+print(f"Overall center of gravity: x = {overall_center_of_gravity.x}, y = {overall_center_of_gravity.y}")
 
 
 
