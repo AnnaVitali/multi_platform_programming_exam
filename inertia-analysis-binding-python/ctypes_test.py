@@ -39,6 +39,13 @@ lib.get_baricentric_moments_of_inertia.restype = InertiaMoments
 lib.get_overall_center_of_gravity.argtypes = [ctypes.POINTER(Polygon), ctypes.c_int]
 lib.get_overall_center_of_gravity.restype = Point
 
+lib.get_combined_absolute_moment_of_inertia.argtypes = [ctypes.POINTER(Polygon), ctypes.c_int]
+lib.get_combined_absolute_moment_of_inertia.restype = InertiaMoments
+
+lib.get_combined_baricentric_moments_of_inertia.argtypes = [ctypes.POINTER(Polygon), ctypes.c_int, ctypes.POINTER(Point)]
+lib.get_combined_baricentric_moments_of_inertia.restype = InertiaMoments
+
+
 # Define the vertices of the wood piece
 vertices_polygon = [
     (665, 394),
@@ -70,7 +77,7 @@ for i, (center_x, center_y) in enumerate(cups_center, start=1):
     cup = Polygon(area_square_cup, Point(center_x, center_y), absolute_moments, angle=0.0)
     polygons.append(cup)
     
-    baricentric_moments = lib.get_baricentric_moments_of_inertia(cup)
+    baricentric_moments = lib.get_combined_absolute_moment_of_inertia(cup)
     
    
     print(f"============== Area for Cup {i} ===============")
@@ -87,6 +94,12 @@ overall_center_of_gravity = lib.get_overall_center_of_gravity(polygons_array, le
 print("========== Test Overall Center of Gravity ===========")
 print(f"Overall center of gravity: x = {overall_center_of_gravity.x}, y = {overall_center_of_gravity.y}")
 
+combined_absolute_moments = lib.get_combined_absolute_moment_of_inertia(polygons_array, len(polygons))
 
+print(f"=== Test Absolute Moments of inertia entire piece ===")
+print(f"jx: {combined_absolute_moments.i} \n jy: {combined_absolute_moments.j} \n jxy: {combined_absolute_moments.ij}")
 
+combined_baricentric_moments = lib.get_combined_baricentric_moments_of_inertia(polygons_array, len(polygons), ctypes.byref(overall_center_of_gravity))
 
+print(f"== Test Baricentric Moments of inertia entire piece ==")
+print(f"jx: {combined_baricentric_moments.i} \n jy: {combined_baricentric_moments.j} \n jxy: {combined_baricentric_moments.ij}")
