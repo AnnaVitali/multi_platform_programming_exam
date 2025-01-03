@@ -77,16 +77,16 @@ for i, (center_x, center_y) in enumerate(cups_center, start=1):
     cup = Polygon(area_square_cup, Point(center_x, center_y), absolute_moments, angle=0.0)
     polygons.append(cup)
     
-    baricentric_moments = lib.get_combined_absolute_moment_of_inertia(cup)
+    baricentric_moments = lib.get_baricentric_moments_of_inertia(cup)
     
    
     print(f"============== Area for Cup {i} ===============")
     print(f"The area of the square cup {i} is: {area_square_cup}")
     print(f"=== Absolute Moment of Inertia for Cup {i} ====")
     print(f"Absolute moment of inertia for cup {i}:")
-    print(f"jx: {absolute_moments.i} \n jy: {absolute_moments.j} \n jxy: {absolute_moments.ij}")
+    print(f"jx: {absolute_moments.i} \njy: {absolute_moments.j} \njxy: {absolute_moments.ij}")
     print(f"Baricentric moment of inertia for cup {i}:")
-    print(f"jx: {baricentric_moments.i} \n jy: {baricentric_moments.j} \n jxy: {baricentric_moments.ij}")
+    print(f"jx: {baricentric_moments.i} \njy: {baricentric_moments.j} \njxy: {baricentric_moments.ij}")
 
 polygons_array = (Polygon * len(polygons))(*polygons)
 overall_center_of_gravity = lib.get_overall_center_of_gravity(polygons_array, len(polygons))
@@ -97,9 +97,9 @@ print(f"Overall center of gravity: x = {overall_center_of_gravity.x}, y = {overa
 combined_absolute_moments = lib.get_combined_absolute_moment_of_inertia(polygons_array, len(polygons))
 
 print(f"=== Test Absolute Moments of inertia entire piece ===")
-print(f"jx: {combined_absolute_moments.i} \n jy: {combined_absolute_moments.j} \n jxy: {combined_absolute_moments.ij}")
+print(f"jx: {combined_absolute_moments.i} \njy: {combined_absolute_moments.j} \njxy: {combined_absolute_moments.ij}")
 
 combined_baricentric_moments = lib.get_combined_baricentric_moments_of_inertia(polygons_array, len(polygons), ctypes.byref(overall_center_of_gravity))
 
 print(f"== Test Baricentric Moments of inertia entire piece ==")
-print(f"jx: {combined_baricentric_moments.i} \n jy: {combined_baricentric_moments.j} \n jxy: {combined_baricentric_moments.ij}")
+print(f"jx: {combined_baricentric_moments.i} \njy: {combined_baricentric_moments.j} \njxy: {combined_baricentric_moments.ij}")
