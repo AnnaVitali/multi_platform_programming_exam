@@ -21,20 +21,22 @@ jobs:
       with:
         python-version: '3.10.10'
 
-    - name: Install dependencies
+    - name: Build and test ctype
       run: |
         cd ./inertia-analysis-binding-python
         python -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
         pip install -r requirements.txt
-
-    - name: Build and test ctype
-      run: |
         invoke build-library
         python ctypes_test.py
 
     - name: Build and test cffi
       run: |
+        cd ./inertia-analysis-binding-python
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
         invoke build-cffi
         python cffi_test.py
