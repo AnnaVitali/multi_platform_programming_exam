@@ -169,3 +169,7 @@ inertia-analysis-binding-python/cython_debug/
 
 # PyPI configuration file
 inertia-analysis-binding-python/.pypirc
+
+inertia-analysis-binding-python/native/*.so
+inertia-analysis-binding-python/native/*.o
+inertia-analysis-binding-python/native/*cffi*
