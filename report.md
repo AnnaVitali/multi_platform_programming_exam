@@ -100,7 +100,7 @@ Specifically, an example was created referencing a step of a spiral staircase to
 
 The piece can be supported by two square suction cups of size 145x145, as shown in the following figure:
 
-![Stair Step and Suction Cups support](img/stair_step_and_suction_cup.png)
+![Stair Step and Suction Cups support](img/sair_step_and_suction_cup.png)
 
 ### Ctypes
 
