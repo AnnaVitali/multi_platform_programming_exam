@@ -23,6 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        cd ./inertia-analysis-binding-python
         python -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
