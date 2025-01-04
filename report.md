@@ -22,9 +22,9 @@ The library provides the following methods:
 
 - `get_polygon_area`: calculates the area of a polygon using the formula:
 
-    $ Z_i = x_i y_{i-1} - x_{i-1} y_i $
+    $Z_i = x_i y_{i-1} - x_{i-1} y_i$
 
-    $ A = \frac{1}{2} \sum_{i=1}^{n} Z_i $
+    $A = \frac{1}{2} \sum_{i=1}^{n} Z_i$
 
     where:
     - $A$: Area of the polygon
@@ -34,19 +34,19 @@ The library provides the following methods:
 
 - `get_absolute_moments_of_inertia`: calculates the absolute moments of inertia of a polygon, which depend on its geometry and position in the plane. The formula is:
 
-    $ J_{xi} = \frac{1}{12} \sum_{i=1}^{n} \left( y_i^2 + y_i y_{i+1} + y_{i+1}^2 \right) \left( x_i y_{i+1} - x_{i+1} y_i \right) $
+    $J_{xi} = \frac{1}{12} \sum_{i=1}^{n} \left( y_i^2 + y_i y_{i+1} + y_{i+1}^2 \right) \left( x_i y_{i+1} - x_{i+1} y_i \right)$
 
-    $ J_{yi} = \frac{1}{12} \sum_{i=1}^{n} \left( x_i^2 + x_i x_{i+1} + x_{i+1}^2 \right) \left( x_i y_{i+1} - x_{i+1} y_i \right) $
+    $J_{yi} = \frac{1}{12} \sum_{i=1}^{n} \left( x_i^2 + x_i x_{i+1} + x_{i+1}^2 \right) \left( x_i y_{i+1} - x_{i+1} y_i \right)$
 
-    $ J_{xyi} = \frac{1}{24} \sum_{i=1}^{n} \left( x_i y_{i+1} + 2 x_i y_i + 2 x_{i+1} y_{i+1} + x_{i+1} y_i \right) \left( x_i y_{i+1} - x_{i+1} y_i \right) $
+    $J_{xyi} = \frac{1}{24} \sum_{i=1}^{n} \left( x_i y_{i+1} + 2 x_i y_i + 2 x_{i+1} y_{i+1} + x_{i+1} y_i \right) \left( x_i y_{i+1} - x_{i+1} y_i \right)$
 
 - `get_baricentric_moments_of_inertia`: calculates the barycentric moments of inertia of a polygon, which depend solely on its geometry. For polygons with identical features, these values are identical. The formula is:
 
-    $ J_{xgi}' = J_{xi} - y_{gi}^2 A_i $
+    $J_{xgi}' = J_{xi} - y_{gi}^2 A_i$
 
-    $ J_{ygi}' = J_{yi} - x_{gi}^2 A_i $
+    $J_{ygi}' = J_{yi} - x_{gi}^2 A_i$
 
-    $ J_{xygi}' = J_{xyi} - y_{gi} x_{gi} A_i $
+    $J_{xygi}' = J_{xyi} - y_{gi} x_{gi} A_i$
 
     where:
     - $A_i$: area of the polygon
@@ -55,40 +55,40 @@ The library provides the following methods:
 
     Considering the polygon's rotation angle $\alpha$, the overall solution becomes:
 
-    $ J_{xgi} = J_{xgi}' \cos^2(\alpha) + J_{ygi}' \sin^2(\alpha) - J_{xygi}' 2 \sin(\alpha) \cos(\alpha) $
+    $J_{xgi} = J_{xgi}' \cos^2(\alpha) + J_{ygi}' \sin^2(\alpha) - J_{xygi}' 2 \sin(\alpha) \cos(\alpha)$
 
-    $ J_{ygi} = J_{xgi}' \sin^2(\alpha) + J_{ygi}' \cos^2(\alpha) - J_{xygi}' 2 \sin(\alpha) \cos(\alpha) $
+    $J_{ygi} = J_{xgi}' \sin^2(\alpha) + J_{ygi}' \cos^2(\alpha) - J_{xygi}' 2 \sin(\alpha) \cos(\alpha)$
 
-    $ J_{xygi} = (J_{xgi}' - J_{ygi}') \sin(\alpha) \cos(\alpha) + J_{xygi}' (\cos^2(\alpha) - \sin^2(\alpha)) $
+    $J_{xygi} = (J_{xgi}' - J_{ygi}') \sin(\alpha) \cos(\alpha) + J_{xygi}' (\cos^2(\alpha) - \sin^2(\alpha))$
 
 - `get_overall_center_of_gravity`: determines the overall centroid of a set of geometries, given their areas, relative to an absolute reference system (x, y):
 
-    $ X_G = \frac{\sum_{i=1}^{n} A_i x_{gi}}{\sum_{i=1}^{n} A_i} $
+    $X_G = \frac{\sum_{i=1}^{n} A_i x_{gi}}{\sum_{i=1}^{n} A_i}$
 
-    $ Y_G = \frac{\sum_{i=1}^{n} A_i y_{gi}}{\sum_{i=1}^{n} A_i} $
+    $Y_G = \frac{\sum_{i=1}^{n} A_i y_{gi}}{\sum_{i=1}^{n} A_i}$
 
 - `get_combined_absolute_moment_of_inertia`: calculates the absolute moments of inertia of a set of geometries, given their barycentric moments of inertia:
 
-    $ J_x = \sum_{i=1}^{n} J_{xi} $
+    $J_x = \sum_{i=1}^{n} J_{xi}$
 
-    $ J_y = \sum_{i=1}^{n} J_{yi} $
+    $J_y = \sum_{i=1}^{n} J_{yi}$
 
-    $ J_{xy} = \sum_{i=1}^{n} J_{xyi} $
+    $J_{xy} = \sum_{i=1}^{n} J_{xyi}$
 
     where:
     - $d_{ix}, d_{iy}$: distances in $x$ and $y$ between the centroid of each suction area $i$ and the overall center of gravity $G$
 
 - `get_combined_baricentric_moments_of_inertia`: calculates the principal moments of inertia for a set of geometries, given their areas and centroid positions:
 
-    $ J_{xg}' = J_x - y_g^2 A $
+    $J_{xg}' = J_x - y_g^2 A$
 
-    $ J_{yg}' = J_y - x_g^2 A $
+    $J_{yg}' = J_y - x_g^2 A$
 
-    $ J_{xyg}' = J_{xy} - y_g x_g A $
+    $J_{xyg}' = J_{xy} - y_g x_g A$
 
-    $ J_{\xi} = \frac{(J_{xg}' + J_{yg}') - \sqrt{(J_{xg}' - J_{yg}')^2 + 4 J_{xyg}'^2}}{2} $
+    $J_{\xi} = \frac{(J_{xg}' + J_{yg}') - \sqrt{(J_{xg}' - J_{yg}')^2 + 4 J_{xyg}'^2}}{2}$
 
-    $ J_{\eta} = \frac{(J_{xg}' + J_{yg}') + \sqrt{(J_{xg}' - J_{yg}')^2 + 4 J_{xyg}'^2}}{2} $
+    $J_{\eta} = \frac{(J_{xg}' + J_{yg}') + \sqrt{(J_{xg}' - J_{yg}')^2 + 4 J_{xyg}'^2}}{2}$
 
 ## Python Binding
 
