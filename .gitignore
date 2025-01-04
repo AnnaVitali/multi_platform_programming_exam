@@ -173,3 +173,5 @@ inertia-analysis-binding-python/.pypirc
 inertia-analysis-binding-python/native/*.so
 inertia-analysis-binding-python/native/*.o
 inertia-analysis-binding-python/native/*cffi*
+
+inertia-analysis-binding-python/native/.ipynb_checkpoints
