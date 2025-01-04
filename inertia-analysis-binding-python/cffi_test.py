@@ -44,7 +44,7 @@ for i, (center_x, center_y) in enumerate(cups_center, start=1):
     area_square_cup = lib.get_polygon_area(point_array_cup, len(vertices_square_cup))
     absolute_moments = lib.get_absolute_moments_of_inertia(point_array_cup, len(vertices_square_cup))
 
-    cup = ffi.new("Polygon", {
+    cup = ffi.new("Polygon*", {
         "area": area_square_cup,
         "barycenter": {"x": center_x, "y": center_y},
         "absolute_moments_of_inertia": absolute_moments,
