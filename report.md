@@ -14,13 +14,13 @@ The `.h` files provide an overview of the methods and structures used by the lib
 
 Three main structures were employed:
 
-- **`Point`**: Represents a point in the Cartesian plane with `x` and `y` coordinates.
-- **`InertiaMoments`**: Represents the moments of inertia calculated for a specific geometry, consisting of three values: `i`, `j`, and `ij`.
-- **`Polygon`**: This structure encapsulates data related to the suction cups, such as their area, centroid, absolute moments of inertia, and rotation angle (if any).
+- **`Point`**: represents a point in the Cartesian plane with `x` and `y` coordinates.
+- **`InertiaMoments`**: represents the moments of inertia calculated for a specific geometry, consisting of three values: `i`, `j`, and `ij`.
+- **`Polygon`**: this structure encapsulates data related to the suction cups, such as their area, centroid, absolute moments of inertia, and rotation angle (if any).
 
 The library provides the following methods:
 
-- `get_polygon_area`: Calculates the area of a polygon using the formula:
+- `get_polygon_area`: calculates the area of a polygon using the formula:
 
     $ Z_i = x_i y_{i-1} - x_{i-1} y_i $
 
@@ -32,7 +32,7 @@ The library provides the following methods:
     - $x_i, y_i$: Coordinates of the polygon's vertices
     - $n$: Number of vertices
 
-- `get_absolute_moments_of_inertia`: Calculates the absolute moments of inertia of a polygon, which depend on its geometry and position in the plane. The formula is:
+- `get_absolute_moments_of_inertia`: calculates the absolute moments of inertia of a polygon, which depend on its geometry and position in the plane. The formula is:
 
     $ J_{xi} = \frac{1}{12} \sum_{i=1}^{n} \left( y_i^2 + y_i y_{i+1} + y_{i+1}^2 \right) \left( x_i y_{i+1} - x_{i+1} y_i \right) $
 
@@ -40,7 +40,7 @@ The library provides the following methods:
 
     $ J_{xyi} = \frac{1}{24} \sum_{i=1}^{n} \left( x_i y_{i+1} + 2 x_i y_i + 2 x_{i+1} y_{i+1} + x_{i+1} y_i \right) \left( x_i y_{i+1} - x_{i+1} y_i \right) $
 
-- `get_baricentric_moments_of_inertia`: Calculates the barycentric moments of inertia of a polygon, which depend solely on its geometry. For polygons with identical features, these values are identical. The formula is:
+- `get_baricentric_moments_of_inertia`: calculates the barycentric moments of inertia of a polygon, which depend solely on its geometry. For polygons with identical features, these values are identical. The formula is:
 
     $ J_{xgi}' = J_{xi} - y_{gi}^2 A_i $
 
@@ -49,9 +49,9 @@ The library provides the following methods:
     $ J_{xygi}' = J_{xyi} - y_{gi} x_{gi} A_i $
 
     where:
-    - $A_i$: Area of the polygon
-    - $(x_{gi}, y_{gi})$: Coordinates of its centroid
-    - $J_{xi}, J_{yi}, J_{xyi}$: Moments of inertia relative to an absolute reference system (x, y)
+    - $A_i$: area of the polygon
+    - $(x_{gi}, y_{gi})$: coordinates of its centroid
+    - $J_{xi}, J_{yi}, J_{xyi}$: moments of inertia relative to an absolute reference system (x, y)
 
     Considering the polygon's rotation angle $\alpha$, the overall solution becomes:
 
@@ -61,13 +61,13 @@ The library provides the following methods:
 
     $ J_{xygi} = (J_{xgi}' - J_{ygi}') \sin(\alpha) \cos(\alpha) + J_{xygi}' (\cos^2(\alpha) - \sin^2(\alpha)) $
 
-- `get_overall_center_of_gravity`: Determines the overall centroid of a set of geometries, given their areas, relative to an absolute reference system (x, y):
+- `get_overall_center_of_gravity`: determines the overall centroid of a set of geometries, given their areas, relative to an absolute reference system (x, y):
 
     $ X_G = \frac{\sum_{i=1}^{n} A_i x_{gi}}{\sum_{i=1}^{n} A_i} $
 
     $ Y_G = \frac{\sum_{i=1}^{n} A_i y_{gi}}{\sum_{i=1}^{n} A_i} $
 
-- `get_combined_absolute_moment_of_inertia`: Calculates the absolute moments of inertia of a set of geometries, given their barycentric moments of inertia:
+- `get_combined_absolute_moment_of_inertia`: calculates the absolute moments of inertia of a set of geometries, given their barycentric moments of inertia:
 
     $ J_x = \sum_{i=1}^{n} J_{xi} $
 
@@ -76,9 +76,9 @@ The library provides the following methods:
     $ J_{xy} = \sum_{i=1}^{n} J_{xyi} $
 
     where:
-    - $d_{ix}, d_{iy}$: Distances in $x$ and $y$ between the centroid of each suction area $i$ and the overall center of gravity $G$
+    - $d_{ix}, d_{iy}$: distances in $x$ and $y$ between the centroid of each suction area $i$ and the overall center of gravity $G$
 
-- `get_combined_baricentric_moments_of_inertia`: Calculates the principal moments of inertia for a set of geometries, given their areas and centroid positions:
+- `get_combined_baricentric_moments_of_inertia`: calculates the principal moments of inertia for a set of geometries, given their areas and centroid positions:
 
     $ J_{xg}' = J_x - y_g^2 A $
 
