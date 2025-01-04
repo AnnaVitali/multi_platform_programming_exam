@@ -2,7 +2,6 @@ import ctypes
 
 SQUARE_SIDE_SUCTION_CUP = 145
 
-# Define the Point structure
 class Point(ctypes.Structure):
     _fields_ = [("x", ctypes.c_double), ("y", ctypes.c_double)]
     
