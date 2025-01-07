@@ -1,10 +1,8 @@
 # Report
 
-For the exam in the doctoral course *Multi-platform Programming for Research-Oriented Software*, it was decided to create a C library for analyzing moments of inertia. Specifically, the library references a woodworking machine capable of securing a wooden element to a workbench using special square-shaped suction cups.
+For the exam in the doctoral course *Multi-platform Programming for Research-Oriented Software*, it was decided to create a C library for analyzing moments of inertia of a set of geometries. Specifically, the library references a woodworking machine capable of securing a wooden element to a workbench using special square-shaped suction cups and moments of inertia help determine the force required to tip the piece over, which is crucial as the goal during machining is to keep the workpiece as stable as possible. To achieve this, suction cups must be arranged so that the total moments of inertia (considering both the wooden piece and the suction cups) are maximized.
 
-Moments of inertia help determine the force required to tip the piece over, which is crucial as the goal during machining is to keep the workpiece as stable as possible. To achieve this, suction cups must be arranged so that the total moments of inertia (considering both the wooden piece and the suction cups) are maximized.
-
-The C library is then accessed through Python. For this purpose, bindings were tested using both the `ctypes` and `cffi` libraries.
+The C library is then accessed through Python code. For this purpose, bindings were tested using both the `ctypes` and `cffi` libraries.
 
 ## Library Description
 
@@ -12,7 +10,7 @@ The C library is located in the _/native_ directory, containing the files `libra
 
 The `.h` files provide an overview of the methods and structures used by the library.
 
-Three main structures were employed:
+Specifically, three main structures were employed:
 
 - **`Point`**: represents a point in the Cartesian plane with `x` and `y` coordinates.
 - **`InertiaMoments`**: represents the moments of inertia calculated for a specific geometry, consisting of three values: `i`, `j`, and `ij`.
